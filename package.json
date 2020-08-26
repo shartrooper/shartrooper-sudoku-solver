@@ -4,8 +4,8 @@
   "description": "Quality Assurance 4: Sudoku Solver",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "mocha --require @babel/register --recursive --exit --ui tdd tests/"
+    "start": "cross-env NODE_ENV=development nodemon server.js",
+    "test": "cross-env NODE_ENV=test mocha --require @babel/register --recursive --exit --ui tdd tests/"
   },
   "dependencies": {
     "@babel/core": "^7.10.1",
@@ -20,5 +20,8 @@
     "mocha": "^7.1.1",
     "nodemon": "^2.0.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  }
 }

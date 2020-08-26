@@ -1,9 +1,9 @@
-require('dotenv').config();
+
 const express     = require('express');
 const bodyParser  = require('body-parser');
 const expect      = require('chai').expect;
 const cors        = require('cors');
-
+const config      = require('./utils/config');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
@@ -32,10 +32,10 @@ app.use(function(req, res, next) {
 });
 
 //Start our server and tests!
-app.listen(process.env.PORT || 3000, function () {
-  console.log("Listening on port " + process.env.PORT);
+app.listen(config.PORT || 3000, function () {
+  console.log("Listening on port " + config.PORT + ", " + config.NODE_ENV + " mode");
   // process.env.NODE_ENV='test'
-  if (process.env.NODE_ENV==='test') {
+  if (config.NODE_ENV==='test') {
     console.log('Running Tests...');
     setTimeout(function () {
       try {
