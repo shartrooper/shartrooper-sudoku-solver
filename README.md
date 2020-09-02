@@ -2,7 +2,7 @@
 
 ### About :
 
-This web application is an automatic Sudoku Solver using `backtracking` as [!recursive method](https://www.geeksforgeeks.org/sudoku-backtracking-7/)
+This web application is an automatic Sudoku Solver using `backtracking` as [recursive method](https://www.geeksforgeeks.org/sudoku-backtracking-7/)
   
 It meets all the requirements of the FCC Quality Assurance Projects - Sudoku Solver project.
 
