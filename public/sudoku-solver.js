@@ -273,6 +273,8 @@ try {
         checkLegitInput: sudokuSolver().checkLegitInput,
         solvePuzzle: sudokuSolver().solvePuzzle,
         createTwoDimensionalArray:sudokuSolver().createTwoDimensionalArray,
-        displayMsg: sudokuSolver().displayMsg
+        displayMsg: sudokuSolver().displayMsg,
+        getArrayFromString: sudokuSolver().getArrayFromString,
+        drawOnCells: sudokuSolver().drawOnCells
     }
 } catch (e) {}

@@ -11,4 +11,4 @@ It meets all the requirements of the FCC Quality Assurance Projects - Sudoku Sol
 * To run the tests on Repl.it, just run `npm start`. If local, type `npm run watch` or `npm run test` to run server with nodemon.
 * To run the tests in the console, use the command npm run test. To open the Repl.it console, press Ctrl+Shift+P (Cmd if on a Mac) and type "open shell".
 * All logic contained into `public/sudoku-solver.js`.
-* Alll of the unit/functional tests in `tests/1_unit-tests.js` and `tests/2_functional-tests.js`.
+* All unit/functional tests in `tests/1_unit-tests.js` and `tests/2_functional-tests.js`.

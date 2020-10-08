@@ -13,28 +13,20 @@ const jsdom = require('jsdom');
 const {
     JSDOM
 } = jsdom;
-let Solver, domEvent;
+let Solver;
 
 suite('UnitTests', () => {
-    suiteSetup(function () {
+    suiteSetup(() => {
         // Mock the DOM for testing and load Solver
         return JSDOM.fromFile('./views/index.html', {
             runScripts: 'dangerously',
             resources: 'usable'
         })
-        .then(dom =>
-            new Promise(resolve => {
-                dom.window.document.addEventListener('DOMContentLoaded', () => {
-                    global.window = dom.window;
-                    global.document = dom.window.document,
-                    domEvent = new window.Event('input', {
-                        bubbles: true,
-                        cancelable: true
-                    });
-                    Solver = require('../public/sudoku-solver');
-                    resolve();
-                })
-            }))
+        .then(dom => {
+            global.window = dom.window;
+            global.document = dom.window.document;
+            Solver = require('../public/sudoku-solver');
+        });
     });
     // Only the digits 1-9 are accepted
     // as valid input for the puzzle grid
@@ -176,45 +168,57 @@ suite('UnitTests', () => {
             const errorMsg = 'Error: Expected puzzle to be 81 characters long.';
             const errorDiv = document.getElementById('error-msg');
             const textArea = document.getElementById('text-input');
-            Solver.displayMsg(errorDiv)('hidden', '');
             textArea.value = shortStr;
             //Trigger click event
-            textArea.dispatchEvent(domEvent);
             document.getElementById('solve-button').click();
-            //assert.equal(errorDiv.innerText, errorMsg);
-            assert.equal(errorDiv.style.visibility, 'visible');
+            assert.equal(errorDiv.innerText, errorMsg, 'errorDiv should contain Error text');
+            assert.equal(errorDiv.style.visibility, 'visible', 'erroDiv should be a visible element');
             // Change back to long string and the error should remain. Start by resetting the value of errorDiv to confirm a positive result
-            /*errorDiv.innerText = '';
+            errorDiv.innerText = '';
             textArea.value = longStr;
-            textArea.dispatchEvent(domEvent);
             document.getElementById('solve-button').click();
-            assert.equal(errorDiv.innerText, errorMsg);*/
+            assert.equal(errorDiv.innerText, errorMsg);
             done();
         });
     });
 
-    suite('Function ____()', () => {
+    suite('Function solvePuzzle() and checkSolvable()', () => {
         // Valid complete puzzles pass
         test('Valid puzzles pass', done => {
             const input = '769235418851496372432178956174569283395842761628713549283657194516924837947381625';
-
-            // done();
+            const errorDiv = document.getElementById('error-msg');
+            const textArea = document.getElementById('text-input');
+            textArea.value = input;
+            document.getElementById('solve-button').click();
+            assert.equal(errorDiv.innerText, '', 'errorDiv should have not text');
+            assert.equal(errorDiv.style.visibility, 'hidden', 'erroDiv should not be a visible element');
+            done();
         });
 
         // Invalid complete puzzles fail
         test('Invalid puzzles fail', done => {
             const input = '779235418851496372432178956174569283395842761628713549283657194516924837947381625';
-
-            // done();
+            const errorDiv = document.getElementById('error-msg');
+            const errorMsg = 'Error: No solution.';
+            const textArea = document.getElementById('text-input');
+            textArea.value = input;
+            document.getElementById('solve-button').click();
+            assert.equal(errorDiv.innerText, errorMsg, 'errorDiv should contain No Solution text');
+            assert.equal(errorDiv.style.visibility, 'visible', 'errorDiv should be a visible element');
+            done();
         });
     });
 
-    suite('Function ____()', () => {
+    suite('Function solvePuzzle() and findSolution()', () => {
         // Returns the expected solution for a valid, incomplete puzzle
         test('Returns the expected solution for an incomplete puzzle', done => {
-            const input = '..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..';
-
-            // done();
+            const textArea = document.getElementById('text-input');
+            const input = '1.5..2.84..63.12.7.2..5.....9..1....8.2.3674.3.7.2..9.47...8..1..16....926914.37.';
+            const solution = '135762984946381257728459613694517832812936745357824196473298561581673429269145378';
+            textArea.value = input;
+            document.getElementById('solve-button').click();
+            assert.equal(textArea.value, solution, 'textArea should contain the solution returned')
+            done();
         });
     });
 });
