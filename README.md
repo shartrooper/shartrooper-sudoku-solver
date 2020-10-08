@@ -6,6 +6,8 @@ This web application is an automatic Sudoku Solver using `backtracking` as [recu
   
 It meets all the requirements of the FCC Quality Assurance Projects - Sudoku Solver project.
 
+[![Run on Repl.it](https://repl.it/badge/github/shartrooper/shartrooper-sudoku-solver)](https://repl.it/github/shartrooper/shartrooper-sudoku-solver)
+
 ### Testing and additional notes
 
 * To run the tests on Repl.it, just run `npm start`. If local, type `npm run watch` or `npm run test` to run server with nodemon.
